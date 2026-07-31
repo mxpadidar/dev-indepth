@@ -1,0 +1,51 @@
+---
+import FallbackOgImage from "../assets/default-social-card.png";
+
+// define the props that can be passed to this layout component
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+}
+
+// extract the props passed from the page, or fall back to the constants
+const { title, description, image = FallbackOgImage } = Astro.props;
+
+// Constructs the exact, full URL of the current page
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en">
+  <head>
+    <!-- global metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- points search engines directly to your generated sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- canonical url -->
+    <!-- tells google "this is the official url for this page". -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- primary meta tags (google search) -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- open graph metadata (linkedin & social sharing) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image.src, Astro.url)} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body style="max-width: 800px; margin: 0 auto; background-color: #1c1c1c; color: #d6efff;">
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

@@ -1,29 +1,24 @@
 ---
-// src/pages/index.astro
+import BaseLayout from "../components/BaseLayout.astro";
+import { SITE_TITLE } from "../consts";
+const DESCRIPTION =
+  "A digital notebook documenting real-world backend development, system design, Python, and Go.";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <title>dev-indepth</title>
-  </head>
-  <body style="max-width: 800px; margin: 0 auto; background-color: #1c1c1c; color: #d6efff;">
-    <h1 style="font-style: italic;">dev-indepth</h1>
+<BaseLayout title={SITE_TITLE} description={DESCRIPTION}>
+  <h1 style="font-style: italic;">dev-indepth</h1>
 
-    <p>
-      Welcome to dev-indepth, a digital notebook documenting the daily realities of backend
-      development. The content here focuses on practical experiences with Python and Go, breaking
-      down system design challenges, and exploring both foundational and modern software engineering
-      concepts.
-    </p>
+  <p style="text-align: justify;">
+    Welcome to dev-indepth, a digital notebook documenting the daily realities of backend
+    development. The content here focuses on practical experiences with Python and Go, breaking down
+    system design challenges, and exploring both foundational and modern software engineering
+    concepts.
+  </p>
 
-    <p>
-      This space is dedicated to technical details and lessons learned from active development—from
-      scaling services and debugging complex concurrency issues to architecting new systems.
-    </p>
+  <p style="text-align: justify;">
+    This space is dedicated to technical details and lessons learned from active development—from
+    scaling services and debugging complex concurrency issues to architecting new systems.
+  </p>
 
-    <a href="/about">read more about me</a>
-  </body>
-</html>
+  <a href="/about">read more about me &rarr;</a>
+</BaseLayout>

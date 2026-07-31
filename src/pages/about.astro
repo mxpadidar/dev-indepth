@@ -1,1 +1,19 @@
-<h1>about me...</h1>
+---
+import BaseLayout from "../components/BaseLayout.astro";
+
+const DESCRIPTION =
+  "A little bit about the backend engineer behind dev-indepth, focusing on Go, Python, and system architecture.";
+---
+
+<BaseLayout title="About" description={DESCRIPTION}>
+  <h1 style="font-style: italic;">about me...</h1>
+
+  <p style="text-align: justify;">
+    I'm a backend software engineer who loves building scalable systems and untangling complex
+    architectural puzzles. My daily work revolves mostly around Python and Go. I created dev-indepth
+    as a personal knowledge base to document my technical journey, share practical deep dives, and
+    connect with other developers navigating the backend ecosystem.
+  </p>
+
+  <a href="/">&larr; back to home</a>
+</BaseLayout>
