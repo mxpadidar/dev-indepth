@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { Font } from "astro:assets";
 
 import FallbackOgImage from "../assets/default-social-card.png";
 
@@ -44,6 +45,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- adding suse-mono font using font provider -->
+    <Font cssVariable="--font-suse-mono" />
   </head>
   <body>
     <main class="container">
