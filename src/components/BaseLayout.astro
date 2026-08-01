@@ -1,4 +1,6 @@
 ---
+import "../styles/global.css";
+
 import FallbackOgImage from "../assets/default-social-card.png";
 
 // define the props that can be passed to this layout component
@@ -43,8 +45,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body style="max-width: 800px; margin: 0 auto; background-color: #1c1c1c; color: #d6efff;">
-    <main>
+  <body>
+    <main class="container">
       <slot />
     </main>
   </body>

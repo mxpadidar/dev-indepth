@@ -6,19 +6,30 @@ const DESCRIPTION =
 ---
 
 <BaseLayout title={SITE_TITLE} description={DESCRIPTION}>
-  <h1 style="font-style: italic;">dev-indepth</h1>
+  <h1>DEV INDEPTH</h1>
 
-  <p style="text-align: justify;">
+  <p>
     Welcome to dev-indepth, a digital notebook documenting the daily realities of backend
     development. The content here focuses on practical experiences with Python and Go, breaking down
     system design challenges, and exploring both foundational and modern software engineering
     concepts.
   </p>
 
-  <p style="text-align: justify;">
+  <p>
     This space is dedicated to technical details and lessons learned from active development—from
     scaling services and debugging complex concurrency issues to architecting new systems.
   </p>
 
-  <a href="/about">read more about me &rarr;</a>
+  <div class="read-more">
+    <a href="/about">read more about me</a>
+    <span>&rarr;</span>
+  </div>
 </BaseLayout>
+
+<style>
+  .read-more {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>
