@@ -1,0 +1,88 @@
+---
+interface Props {
+  href?: string;
+}
+
+const { href = "/" } = Astro.props;
+---
+
+<a href={href} class="nav-brand" aria-label="dev-indepth">
+  <div class="brand-row brand-top" aria-hidden="true">
+    <span>D</span>
+    <span>E</span>
+    <span>V</span>
+  </div>
+  <div class="brand-row brand-bottom" aria-hidden="true">
+    <span>I</span>
+    <span>N</span>
+    <span>D</span>
+    <span>E</span>
+    <span>P</span>
+    <span>T</span>
+    <span>H</span>
+  </div>
+</a>
+
+<style>
+  .nav-brand {
+    display: grid;
+    align-items: start;
+    width: 4rem;
+    text-decoration: none;
+    color: var(--color-brand);
+    transition:
+      color 180ms ease,
+      text-shadow 180ms ease;
+
+    &:hover {
+      color: var(--color-brand-alt);
+    }
+  }
+
+  .brand-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: 800;
+  }
+
+  .brand-row span {
+    display: inline-block;
+    transition:
+      transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      color 180ms ease;
+  }
+
+  .brand-top {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
+
+  .brand-top span:nth-child(2) {
+    transform: rotate(-30deg);
+  }
+
+  .brand-bottom {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+  }
+
+  /* hover: DEV letters lift, and the tilted E snaps upright */
+  .nav-brand:hover .brand-top span:nth-child(1) {
+    transform: translateY(-3px);
+  }
+
+  .nav-brand:hover .brand-top span:nth-child(2) {
+    transform: rotate(0deg) translateY(-5px);
+  }
+
+  .nav-brand:hover .brand-top span:nth-child(3) {
+    transform: translateY(-3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-row span {
+      transition: none;
+    }
+  }
+</style>

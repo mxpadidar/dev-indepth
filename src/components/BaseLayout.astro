@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { Font } from "astro:assets";
+import Header from "./Header.astro";
 
 import FallbackOgImage from "../assets/default-social-card.png";
 
@@ -50,6 +51,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <Font cssVariable="--font-suse-mono" />
   </head>
   <body>
+    <Header />
     <main class="container">
       <slot />
     </main>

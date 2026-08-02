@@ -1,0 +1,38 @@
+---
+import Brand from "./Brand.astro";
+---
+
+<header>
+  <nav class="container">
+    <Brand />
+    <div class="nav-links">
+      <a class="nav-links" href="/">Home</a>
+      <a class="nav-links" href="/about">About</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  header {
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-subtle);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1rem;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    font-weight: bold;
+  }
+
+  .nav-link a {
+    text-decoration: none;
+  }
+</style>
