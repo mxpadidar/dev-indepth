@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../components/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+
+const posts = await getCollection("blogPosts", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
+);
+
+const DESCRIPTION =
+  "A collection of technical blog posts covering backend development, system architecture, and programming languages like Go and Python.";
+---
+
+<BaseLayout title="Blog Posts" description={DESCRIPTION}>
+  <h1>Blog Posts</h1>
+  <div class="posts-grid">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+</BaseLayout>
+
+<style>
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+</style>
