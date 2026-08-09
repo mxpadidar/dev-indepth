@@ -1,0 +1,75 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TagList from "./TagList.astro";
+import FormattedDate from "./FormattedDate.astro";
+
+export interface Props {
+  post: CollectionEntry<"blogPosts">;
+}
+
+const { post } = Astro.props;
+const { data, id } = post;
+const postUrl = `/posts/${id}`;
+---
+
+<article class="post-card">
+  <a href={postUrl} class="post-link">
+    <div class="thumb">
+      <img src={data.heroImagePath} alt={data.title} width={500} height={281} loading="lazy" />
+    </div>
+    <h4>{data.title}</h4>
+  </a>
+
+  <!-- <p class="description">{data.description}</p> -->
+  <TagList tags={post.data.tags} />
+  <FormattedDate date={post.data.publishedAt} />
+</article>
+
+<style>
+  .post-card {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    border: 1px solid var(--color-subtle);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--color-bg-alt);
+  }
+
+  .post-link {
+    display: grid;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+
+  .thumb {
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 300ms ease-in-out;
+  }
+
+  .post-link:hover .thumb img {
+    transform: scale(1.05);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    text-align: justify;
+    margin-block: 0 0.25rem;
+  }
+</style>
