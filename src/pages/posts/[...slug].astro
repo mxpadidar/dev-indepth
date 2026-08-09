@@ -1,0 +1,72 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../components/BaseLayout.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import TagList from "../../components/TagList.astro";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blogPosts", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
+  );
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  post: CollectionEntry<"blogPosts">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.heroImagePath}
+>
+  <a class="back-link" href="/posts">&larr; all posts</a>
+  <h1>{post.data.title}</h1>
+  <TagList tags={post.data.tags} />
+  <span class="published-at"><FormattedDate date={post.data.publishedAt} /></span>
+  {
+    post.data.heroImagePath && (
+      <img
+        class="hero"
+        src={post.data.heroImagePath}
+        alt={post.data.title}
+        width={500}
+        height={281}
+      />
+    )
+  }
+
+  <div class="content"><Content /></div>
+</BaseLayout>
+
+<style>
+  .back-link {
+    font-size: 0.85em;
+  }
+
+  .published-at {
+    display: inline-block;
+    padding-block: 0.5rem;
+    color: var(--color-text-alt);
+    font-size: 0.85rem;
+  }
+
+  .hero {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--color-subtle);
+    margin-block: 1rem 1.5rem;
+  }
+</style>
