@@ -101,6 +101,24 @@ p {
   margin-block: 0.5em 1em;
 }
 
+ul,
+ol {
+  margin-block: 0.5em 1em;
+  padding-left: 1.5rem;
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
+}
+
+li {
+  margin-block: 0.25em;
+}
+
 .container {
   max-width: 640px;
   margin-inline: auto;
