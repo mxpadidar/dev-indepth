@@ -13,9 +13,10 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@iconify-json/mdi": "^1.2.3",
     "astro": "^7.1.6",
-    "astro-icon": "^1.1.5",
-    "@iconify-json/mdi": "^1.2.3"
+    "astro-expressive-code": "^0.44.1",
+    "astro-icon": "^1.1.5"
   },
   "devDependencies": {
     "prettier": "3.9.6",
