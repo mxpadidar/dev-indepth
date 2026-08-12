@@ -1,0 +1,194 @@
+---
+import { getPosts } from "../lib/posts";
+
+const posts = await getPosts();
+---
+
+<dialog id="post-search-dialog" data-search-dialog>
+  <header>
+    <strong>Search posts</strong>
+    <button type="button" data-search-close aria-label="Close search">&times;</button>
+  </header>
+
+  <label>
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="6.5"></circle>
+      <path d="m16 16 4 4"></path>
+    </svg>
+    <input
+      type="search"
+      autocomplete="off"
+      placeholder="Search titles, descriptions, and tags..."
+      aria-label="Search posts"
+      data-search-input
+    />
+    <kbd>Esc</kbd>
+  </label>
+
+  <small class="count" data-search-count aria-live="polite">{posts.length} posts</small>
+
+  <ul data-search-results>
+    {
+      posts.map((post) => (
+        <li
+          data-search-item
+          data-title={post.data.title}
+          data-description={post.data.description}
+          data-tags={post.data.tags.join(" ")}
+        >
+          <a href={`/posts/${post.id}`}>
+            <strong>{post.data.title}</strong>
+            <span>{post.data.description}</span>
+            <small>{post.data.tags.map((tag) => `#${tag}`).join("  ")}</small>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p data-search-empty hidden>No posts match that search.</p>
+</dialog>
+
+<script>
+  import { initPostSearch } from "../scripts/posts-search";
+
+  const dialog = document.querySelector<HTMLDialogElement>("[data-search-dialog]");
+  if (dialog) initPostSearch(dialog);
+</script>
+
+<style>
+  dialog {
+    width: min(40rem, calc(100% - 2rem));
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-subtle);
+    border-radius: 6px;
+    background: var(--color-bg);
+    color: var(--color-text);
+    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 35%);
+  }
+
+  dialog::backdrop {
+    background: rgb(0 0 0 / 65%);
+  }
+
+  header,
+  label {
+    display: flex;
+    align-items: center;
+  }
+
+  header {
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+
+  header button {
+    border: 0;
+    background: transparent;
+    color: var(--color-text-alt);
+    font: inherit;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  label {
+    gap: 0.75rem;
+    margin-inline: 1rem;
+    padding-inline: 0.75rem;
+    border: 1px solid var(--color-subtle);
+    border-radius: 4px;
+    background: var(--color-bg-alt);
+  }
+
+  label:focus-within {
+    border-color: var(--color-brand);
+  }
+
+  svg {
+    width: 1.1rem;
+    fill: none;
+    stroke: var(--color-brand);
+    stroke-width: 1.75;
+  }
+
+  input {
+    width: 100%;
+    height: 2.75rem;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    font-size: 1rem;
+  }
+
+  kbd {
+    padding: 0.1rem 0.35rem;
+    border: 1px solid var(--color-subtle);
+    border-radius: 3px;
+    color: var(--color-text-alt);
+    font: inherit;
+    font-size: 0.7rem;
+  }
+
+  .count {
+    display: block;
+    padding: 0.6rem 1rem 0.4rem;
+    color: var(--color-text-alt);
+    text-transform: uppercase;
+  }
+
+  ul {
+    max-height: 27rem;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+    border-top: 1px solid var(--color-subtle);
+  }
+
+  li a {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.8rem 1rem;
+    text-decoration: none;
+  }
+
+  li a:is(:hover, :focus-visible) {
+    outline: 0;
+    background: var(--color-bg-alt);
+    box-shadow: inset 3px 0 var(--color-brand);
+  }
+
+  li span {
+    color: var(--color-text-alt);
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  li small {
+    color: var(--color-brand);
+  }
+
+  p {
+    margin: 0;
+    padding: 3rem 1rem;
+    border-top: 1px solid var(--color-subtle);
+    color: var(--color-text-alt);
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    dialog {
+      width: calc(100% - 1rem);
+      max-height: calc(100dvh - 1rem);
+    }
+  }
+</style>

@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { Font } from "astro:assets";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
+import SearchModal from "./SearchModal.astro";
 import { SITE_TITLE } from "../consts";
 
 import FallbackOgImage from "../assets/default-social-card.png";
@@ -75,5 +76,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <Footer />
+    <SearchModal />
   </body>
 </html>

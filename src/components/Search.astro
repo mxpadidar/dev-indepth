@@ -1,0 +1,38 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+  type="button"
+  class="search-button"
+  data-search-trigger
+  aria-label="Search posts"
+  aria-haspopup="dialog"
+  aria-controls="post-search-dialog"
+  title="Search posts (Ctrl+K)"
+>
+  <Icon name="mdi:search" size={18} aria-hidden="true" />
+</button>
+
+<style>
+  .search-button {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .search-button:hover {
+    color: var(--color-brand);
+  }
+
+  .search-button:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+</style>

@@ -28,23 +28,27 @@ const { Content } = await render(post);
   description={post.data.description}
   image={post.data.heroImagePath}
 >
-  <a class="back-link" href="/posts">&larr; all posts</a>
-  <h1>{post.data.title}</h1>
-  <TagList tags={post.data.tags} />
-  <span class="published-at"><FormattedDate date={post.data.publishedAt} /></span>
-  {
-    post.data.heroImagePath && (
-      <img
-        class="hero"
-        src={post.data.heroImagePath}
-        alt={post.data.title}
-        width={500}
-        height={281}
-      />
-    )
-  }
+  <article>
+    <a class="back-link" href="/posts">&larr; all posts</a>
+    <h1>{post.data.title}</h1>
+    <div>
+      <TagList tags={post.data.tags} />
+      <span class="published-at"><FormattedDate date={post.data.publishedAt} /></span>
+    </div>
+    {
+      post.data.heroImagePath && (
+        <img
+          class="hero"
+          src={post.data.heroImagePath}
+          alt={post.data.title}
+          width={500}
+          height={281}
+        />
+      )
+    }
 
-  <div class="content"><Content /></div>
+    <div class="content"><Content /></div>
+  </article>
 </BaseLayout>
 
 <style>
