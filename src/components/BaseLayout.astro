@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { Font } from "astro:assets";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
+import { SITE_TITLE } from "../consts";
 
 import FallbackOgImage from "../assets/default-social-card.png";
 
@@ -29,6 +30,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- points search engines directly to your generated sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE_TITLE}
+      href={new URL("rss.xml", Astro.site)}
+    />
 
     <!-- canonical url -->
     <!-- tells google "this is the official url for this page". -->
