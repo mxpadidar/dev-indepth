@@ -1,0 +1,59 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+  <span class="sun-icon" aria-hidden="true">
+    <Icon name="mdi:white-balance-sunny" size={18} />
+  </span>
+  <span class="moon-icon" aria-hidden="true">
+    <Icon name="mdi:moon-and-stars" size={18} />
+  </span>
+</button>
+
+<script>
+  import { initThemeToggle } from "../scripts/theme-toggle";
+
+  const themeToggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+  if (themeToggle) initThemeToggle(themeToggle);
+</script>
+
+<style>
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-brand);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  .sun-icon,
+  .moon-icon {
+    line-height: 0;
+  }
+
+  .moon-icon {
+    display: none;
+  }
+
+  :global(html[data-theme="light"]) .sun-icon {
+    display: none;
+  }
+
+  :global(html[data-theme="light"]) .moon-icon {
+    display: block;
+  }
+</style>
