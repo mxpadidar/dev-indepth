@@ -120,15 +120,27 @@ li {
 }
 
 .container {
-  max-width: 640px;
+  width: min(100% - 2rem, 640px);
   margin-inline: auto;
-  width: 100%;
 }
 
-/* Breakpoint: 640px + 16 = 656px */
-@media (max-width: 656px) {
-  main {
-    padding-inline: 0.5rem;
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.9em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  p {
+    text-align: left;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
   }
 }
 

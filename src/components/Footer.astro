@@ -11,7 +11,7 @@ import { Icon } from "astro-icon/components";
     </a>
   </div>
 
-  <div class="footer-meta">
+  <div class="container footer-meta">
     <div>
       <span>&copy;</span>2026 dev-indepth. all rights reserved.
     </div>
@@ -36,7 +36,7 @@ import { Icon } from "astro-icon/components";
   }
 
   .footer-contact {
-    padding-block: 0.5rem;
+    padding-block: 0.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,12 +57,11 @@ import { Icon } from "astro-icon/components";
   }
 
   .footer-meta {
-    max-width: 640px;
-    margin-inline: auto;
-    padding: 1rem 1.5rem 2rem;
+    padding-block: 1rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.75rem;
     font-size: 0.85rem;
   }
 
@@ -76,6 +75,20 @@ import { Icon } from "astro-icon/components";
       &:hover {
         color: var(--color-text-alt);
       }
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer-contact {
+      padding-block: 1rem;
+    }
+
+    .footer-meta {
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      padding-block: 1rem 1.5rem;
+      text-align: center;
     }
   }
 </style>
