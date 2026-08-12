@@ -26,6 +26,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- global metadata -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script is:inline>
+      (() => {
+        const savedTheme = localStorage.getItem("dev-indepth-theme");
+        const preferredTheme = window.matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark";
+
+        document.documentElement.dataset.theme =
+          savedTheme === "light" || savedTheme === "dark" ? savedTheme : preferredTheme;
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- points search engines directly to your generated sitemap -->

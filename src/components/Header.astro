@@ -1,14 +1,18 @@
 ---
 import Brand from "./Brand.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header>
   <nav class="container">
     <Brand />
-    <div class="desktop-nav">
-      <a href="/">Home</a>
-      <a href="/posts">Posts</a>
-      <a href="/about">About</a>
+    <div class="nav-actions">
+      <div class="desktop-nav">
+        <a href="/">Home</a>
+        <a href="/posts">Posts</a>
+        <a href="/about">About</a>
+      </div>
+      <ThemeToggle />
     </div>
     <details class="mobile-menu">
       <summary aria-label="Navigation menu">
@@ -42,6 +46,12 @@ import Brand from "./Brand.astro";
     display: flex;
     gap: 1rem;
     font-weight: bold;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .desktop-nav a,
@@ -134,6 +144,12 @@ import Brand from "./Brand.astro";
 
     .desktop-nav {
       display: none;
+    }
+
+    .nav-actions {
+      position: absolute;
+      top: 1.125rem;
+      right: 2.75rem;
     }
 
     .mobile-menu {
