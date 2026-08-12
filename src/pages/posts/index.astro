@@ -1,11 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../../components/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
+import { getPosts } from "../../lib/posts";
 
-const posts = await getCollection("blogPosts", ({ data }) =>
-  import.meta.env.PROD ? !data.draft : true,
-);
+const posts = await getPosts();
 
 const DESCRIPTION =
   "A collection of technical blog posts covering backend development, system architecture, and programming languages like Go and Python.";

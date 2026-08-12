@@ -1,15 +1,14 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import type { GetStaticPaths } from "astro";
 import BaseLayout from "../../components/BaseLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import TagList from "../../components/TagList.astro";
+import { getPosts } from "../../lib/posts";
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("blogPosts", ({ data }) =>
-    import.meta.env.PROD ? !data.draft : true,
-  );
+  const posts = await getPosts();
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
