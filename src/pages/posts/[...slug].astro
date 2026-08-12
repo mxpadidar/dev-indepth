@@ -2,6 +2,7 @@
 import { render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import type { GetStaticPaths } from "astro";
+import { Image } from "astro:assets";
 import BaseLayout from "../../components/BaseLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import TagList from "../../components/TagList.astro";
@@ -26,7 +27,7 @@ const { Content } = await render(post);
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
-  image={post.data.heroImagePath}
+  image={post.data.heroImage}
 >
   <article>
     <a class="back-link" href="/posts">&larr; all posts</a>
@@ -36,13 +37,13 @@ const { Content } = await render(post);
       <span class="published-at"><FormattedDate date={post.data.publishedAt} /></span>
     </div>
     {
-      post.data.heroImagePath && (
-        <img
+      post.data.heroImage && (
+        <Image
           class="hero"
-          src={post.data.heroImagePath}
+          src={post.data.heroImage}
           alt={post.data.title}
-          width={500}
-          height={281}
+          width={640}
+          height={360}
         />
       )
     }

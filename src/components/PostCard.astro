@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
 import TagList from "./TagList.astro";
 import FormattedDate from "./FormattedDate.astro";
 
@@ -15,7 +16,13 @@ const postUrl = `/posts/${id}`;
 <article class="post-card">
   <a href={postUrl} class="post-link">
     <div class="thumb">
-      <img src={data.heroImagePath} alt={data.title} width={500} height={281} loading="lazy" />
+      <Image
+        src={data.heroImage}
+        alt={data.title}
+        width={540}
+        height={304}
+        loading="lazy"
+      />
     </div>
     <h4>{data.title}</h4>
   </a>
