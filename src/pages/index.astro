@@ -1,8 +1,11 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
+import LatestPosts from "../components/LatestPosts.astro";
 import { SITE_TITLE } from "../consts";
+
 const DESCRIPTION =
   "A digital notebook documenting real-world backend development, system design, Python, and Go.";
+
 ---
 
 <BaseLayout title={SITE_TITLE} description={DESCRIPTION}>
@@ -24,6 +27,8 @@ const DESCRIPTION =
     <a href="/about">read more about me</a>
     <span>&rarr;</span>
   </div>
+
+  <LatestPosts />
 </BaseLayout>
 
 <style>
@@ -32,4 +37,5 @@ const DESCRIPTION =
     align-items: center;
     gap: 0.5rem;
   }
+
 </style>

@@ -1,0 +1,53 @@
+---
+import PostCard from "./PostCard.astro";
+import { getPosts } from "../lib/posts";
+
+interface Props {
+  limit?: number;
+}
+
+const { limit = 3 } = Astro.props;
+const posts = await getPosts(limit);
+---
+
+<section class="section-heading">
+  <h2>Latest posts</h2>
+  <div class="view-all-link">
+    <a href="/posts">view all</a>
+    <span>&rarr;</span>
+  </div>
+</section>
+
+<div class="posts-grid">
+  {posts.map((post) => <PostCard post={post} />)}
+</div>
+
+<style>
+  .view-all-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    a {
+      font-size: 0.85rem;
+    }
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+</style>
