@@ -11,7 +11,7 @@ const blogPosts = defineCollection({
       tags: z.array(z.string()).default([]),
       author: z.string().default("mxpadidar"),
       draft: z.boolean().default(false),
-      heroImagePath: z.string(),
+      heroImage: image(),
       publishedAt: z.coerce.date(),
     }),
 });
