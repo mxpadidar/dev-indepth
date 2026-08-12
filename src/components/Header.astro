@@ -1,167 +1,176 @@
 ---
 import Brand from "./Brand.astro";
-import ThemeToggle from "./ThemeToggle.astro";
 import Search from "./Search.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === "/";
+const isPosts = pathname.startsWith("/posts");
+const isAbout = pathname.startsWith("/about");
 ---
 
 <header>
-  <nav class="container">
-    <Brand />
-    <div class="nav-actions">
-      <div class="desktop-nav">
-        <a href="/">Home</a>
-        <a href="/posts">Posts</a>
-        <a href="/about">About</a>
+  <nav class="container" aria-label="Main navigation">
+    <div class="nav-row">
+      <div class="nav-primary">
+        <Brand />
+        <div class="desktop-nav">
+          <a href="/posts" aria-current={isPosts ? "page" : undefined}>Posts</a>
+          <a href="/about" aria-current={isAbout ? "page" : undefined}>About</a>
+        </div>
       </div>
-      <Search />
-      <ThemeToggle />
+
+      <div class="nav-actions">
+        <Search />
+        <ThemeToggle />
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-controls="mobile-navigation"
+          aria-expanded="false"
+          data-menu-toggle
+        >
+          <svg class="menu-icon" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+          <svg class="close-icon" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="m6 6 12 12M18 6 6 18"></path>
+          </svg>
+        </button>
+      </div>
     </div>
-    <details class="mobile-menu">
-      <summary aria-label="Navigation menu">
-        <span class="menu-icon" aria-hidden="true"><span></span></span>
-      </summary>
-      <div class="mobile-nav">
-        <a href="/">Home</a>
-        <a href="/posts">Posts</a>
-        <a href="/about">About</a>
-      </div>
-    </details>
+
+    <div class="mobile-nav" id="mobile-navigation" data-mobile-nav hidden>
+      <a href="/" aria-current={isHome ? "page" : undefined}>Home</a>
+      <a href="/posts" aria-current={isPosts ? "page" : undefined}>Posts</a>
+      <a href="/about" aria-current={isAbout ? "page" : undefined}>About</a>
+    </div>
   </nav>
 </header>
 
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.querySelector<HTMLElement>("[data-mobile-nav]");
+
+  toggle?.addEventListener("click", () => {
+    if (!menu) return;
+    const expanded = toggle.getAttribute("aria-expanded") !== "true";
+
+    toggle.setAttribute("aria-expanded", String(expanded));
+    toggle.setAttribute("aria-label", `${expanded ? "Close" : "Open"} navigation menu`);
+    menu.hidden = !expanded;
+  });
+</script>
+
 <style>
   header {
-    text-transform: uppercase;
     border-bottom: 1px solid var(--color-subtle);
+    text-transform: uppercase;
   }
 
   nav {
-    position: relative;
+    padding-block: 1rem;
+  }
+
+  .nav-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding-block: 1rem;
   }
 
-  .desktop-nav {
-    display: flex;
-    gap: 1rem;
-    font-weight: bold;
-  }
-
+  .nav-primary,
+  .desktop-nav,
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
   }
 
-  .desktop-nav a,
-  .mobile-nav a {
+  .nav-primary {
+    gap: 1.5rem;
+  }
+
+  .desktop-nav {
+    gap: 1.25rem;
+  }
+
+  .nav-actions {
+    gap: 0.25rem;
+  }
+
+  a {
+    font-weight: 700;
     text-decoration: none;
   }
 
-  .mobile-menu {
-    display: none;
+  a[aria-current="page"] {
+    color: var(--color-brand);
   }
 
-  .mobile-menu summary {
+  .menu-toggle {
+    display: none;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
     cursor: pointer;
-    list-style: none;
   }
 
-  .mobile-menu summary::-webkit-details-marker {
+  .menu-toggle:hover,
+  .menu-toggle:focus-visible {
+    color: var(--color-brand);
+  }
+
+  .menu-toggle:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  .menu-toggle svg {
+    width: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+  }
+
+  .close-icon,
+  .mobile-nav {
     display: none;
   }
 
-  .menu-icon {
-    position: relative;
+  .menu-toggle[aria-expanded="true"] .menu-icon {
+    display: none;
+  }
+
+  .menu-toggle[aria-expanded="true"] .close-icon {
     display: block;
-    width: 1.4rem;
-    height: 1rem;
-  }
-
-  .menu-icon::before,
-  .menu-icon::after,
-  .menu-icon span {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--color-brand);
-    content: "";
-    transition:
-      inset 180ms ease,
-      opacity 180ms ease,
-      transform 180ms ease;
-  }
-
-  .menu-icon::before {
-    top: 0;
-  }
-
-  .menu-icon span {
-    top: calc(50% - 1px);
-  }
-
-  .menu-icon::after {
-    bottom: 0;
-  }
-
-  .mobile-menu[open] .menu-icon::before,
-  .mobile-menu[open] .menu-icon::after {
-    top: calc(50% - 1px);
-    bottom: auto;
-  }
-
-  .mobile-menu[open] .menu-icon::before {
-    transform: rotate(45deg);
-  }
-
-  .mobile-menu[open] .menu-icon span {
-    opacity: 0;
-  }
-
-  .mobile-menu[open] .menu-icon::after {
-    transform: rotate(-45deg);
-  }
-
-  .mobile-nav {
-    display: grid;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-subtle);
-    font-weight: bold;
-  }
-
-  .mobile-nav a {
-    padding-block: 0.25rem;
   }
 
   @media (max-width: 640px) {
-    nav {
-      display: block;
-    }
-
     .desktop-nav {
       display: none;
     }
 
-    .nav-actions {
-      position: absolute;
-      top: 1.125rem;
-      right: 2.75rem;
+    .nav-primary {
+      gap: 0;
     }
 
-    .mobile-menu {
-      display: block;
+    .menu-toggle {
+      display: grid;
     }
 
-    .mobile-menu summary {
-      position: absolute;
-      top: 1.625rem;
-      right: 0;
+    .mobile-nav:not([hidden]) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-subtle);
+      text-align: center;
     }
   }
 </style>
