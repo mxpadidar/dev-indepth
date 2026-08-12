@@ -5,11 +5,21 @@ import Brand from "./Brand.astro";
 <header>
   <nav class="container">
     <Brand />
-    <div class="nav-links">
-      <a class="nav-links" href="/">Home</a>
-      <a class="nav-links" href="/posts">Posts</a>
-      <a class="nav-links" href="/about">About</a>
+    <div class="desktop-nav">
+      <a href="/">Home</a>
+      <a href="/posts">Posts</a>
+      <a href="/about">About</a>
     </div>
+    <details class="mobile-menu">
+      <summary aria-label="Navigation menu">
+        <span class="menu-icon" aria-hidden="true"><span></span></span>
+      </summary>
+      <div class="mobile-nav">
+        <a href="/">Home</a>
+        <a href="/posts">Posts</a>
+        <a href="/about">About</a>
+      </div>
+    </details>
   </nav>
 </header>
 
@@ -20,20 +30,120 @@ import Brand from "./Brand.astro";
   }
 
   nav {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
     padding-block: 1rem;
   }
 
-  .nav-links {
-    list-style: none;
+  .desktop-nav {
     display: flex;
     gap: 1rem;
     font-weight: bold;
   }
 
-  .nav-link a {
+  .desktop-nav a,
+  .mobile-nav a {
     text-decoration: none;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-menu summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu-icon {
+    position: relative;
+    display: block;
+    width: 1.4rem;
+    height: 1rem;
+  }
+
+  .menu-icon::before,
+  .menu-icon::after,
+  .menu-icon span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-brand);
+    content: "";
+    transition:
+      inset 180ms ease,
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .menu-icon::before {
+    top: 0;
+  }
+
+  .menu-icon span {
+    top: calc(50% - 1px);
+  }
+
+  .menu-icon::after {
+    bottom: 0;
+  }
+
+  .mobile-menu[open] .menu-icon::before,
+  .mobile-menu[open] .menu-icon::after {
+    top: calc(50% - 1px);
+    bottom: auto;
+  }
+
+  .mobile-menu[open] .menu-icon::before {
+    transform: rotate(45deg);
+  }
+
+  .mobile-menu[open] .menu-icon span {
+    opacity: 0;
+  }
+
+  .mobile-menu[open] .menu-icon::after {
+    transform: rotate(-45deg);
+  }
+
+  .mobile-nav {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-subtle);
+    font-weight: bold;
+  }
+
+  .mobile-nav a {
+    padding-block: 0.25rem;
+  }
+
+  @media (max-width: 640px) {
+    nav {
+      display: block;
+    }
+
+    .desktop-nav {
+      display: none;
+    }
+
+    .mobile-menu {
+      display: block;
+    }
+
+    .mobile-menu summary {
+      position: absolute;
+      top: 1.625rem;
+      right: 0;
+    }
   }
 </style>
