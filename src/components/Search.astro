@@ -11,28 +11,34 @@ import { Icon } from "astro-icon/components";
   aria-controls="post-search-dialog"
   title="Search posts (Ctrl+K)"
 >
-  <Icon name="mdi:search" size={18} aria-hidden="true" />
+  <Icon name="mdi:search" size={22} aria-hidden="true" />
 </button>
 
 <style>
   .search-button {
     display: grid;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: 0;
-    border: 0;
+    border: 1px solid var(--color-bg-alt);
+    border-radius: 50%;
     background: transparent;
     color: var(--color-text);
     cursor: pointer;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease;
   }
 
-  .search-button:hover {
+  .search-button:hover,
+  .search-button:focus-visible {
     color: var(--color-brand);
+    border-color: var(--color-brand);
   }
 
   .search-button:focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-text-alt);
     outline-offset: 2px;
   }
 </style>

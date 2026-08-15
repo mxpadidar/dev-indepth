@@ -3,92 +3,61 @@ import { Icon } from "astro-icon/components";
 ---
 
 <footer>
-  <div class="container footer-contact">
-    <span class="get-in-touch">get in touch</span>
-    <a class="mail-link" href="mailto:mxpadidar@gmail.com">
-      <Icon name="mdi:email-outline" size={20} />
-      <span>mxpadidar@gmail.com</span>
+  <div class="container footer-top">
+    <a href="mailto:mxpadidar@gmail.com" title="email">
+      <Icon name="mdi:email-outline" size={24} />
+      <span class="sr-only">email</span>
+    </a>
+
+    <a href="https://github.com/mxpadidar" target="_blank" rel="noopener" title="GitHub">
+      <Icon name="mdi:github" size={24} />
+      <span class="sr-only">github</span>
+    </a>
+
+    <a href="https://linkedin.com/in/mxpadidar/" target="_blank" rel="noopener" title="LinkedIn">
+      <Icon name="mdi:linkedin" size={24} />
+      <span class="sr-only">linkedin</span>
     </a>
   </div>
 
-  <div class="container footer-meta">
-    <div>
-      <span>&copy;</span>2026 dev-indepth. all rights reserved.
-    </div>
-    <div class="icons">
-      <a href="https://github.com/mxpadidar" target="_blank" rel="noopener" title="GitHub">
-        <Icon name="mdi:github" size={18} />
-        <span class="sr-only">github</span>
-      </a>
-
-      <a href="https://linkedin.com/in/mxpadidar/" target="_blank" rel="noopener" title="LinkedIn">
-        <Icon name="mdi:linkedin" size={18} />
-        <span class="sr-only">linkedin</span>
-      </a>
-    </div>
-  </div>
+  <div class="container footer-bottom">&copy; 2026 dev-indepth. all rights reserved.</div>
 </footer>
 
 <style>
   footer {
-    border-top: 1px solid var(--color-subtle);
-    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-bg-alt);
+    background: var(--color-bg);
   }
 
-  .footer-contact {
-    padding-block: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-bottom: 1px solid var(--color-subtle);
-
-    .get-in-touch {
-      font-size: 1.25rem;
-      font-weight: bolder;
-      text-transform: uppercase;
-    }
-
-    .mail-link {
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-  }
-
-  .footer-meta {
-    padding-block: 1rem 2rem;
+  .footer-top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    font-size: 0.85rem;
-  }
-
-  .icons {
-    display: flex;
+    justify-content: center;
     gap: 1rem;
+    padding-block: 1.5rem 1rem;
 
-    & a {
-      display: flex;
+    a {
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid var(--color-bg-alt);
+      border-radius: 50%;
+      transition:
+        color 180ms ease,
+        border-color 180ms ease;
 
       &:hover {
-        color: var(--color-text-alt);
+        color: var(--color-brand);
+        border-color: var(--color-brand);
       }
     }
   }
 
-  @media (max-width: 640px) {
-    .footer-contact {
-      padding-block: 1rem;
-    }
-
-    .footer-meta {
-      flex-direction: column;
-      justify-content: center;
-      gap: 1rem;
-      padding-block: 1rem 1.5rem;
-      text-align: center;
-    }
+  .footer-bottom {
+    padding-bottom: 2rem;
+    color: var(--color-text-alt);
+    font-size: 0.85rem;
+    text-align: center;
   }
 </style>

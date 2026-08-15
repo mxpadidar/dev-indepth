@@ -24,14 +24,10 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout
-  title={post.data.title}
-  description={post.data.description}
-  image={post.data.heroImage}
->
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.heroImage}>
   <article>
     <a class="back-link" href="/posts">&larr; all posts</a>
-    <h1>{post.data.title}</h1>
+    <h2>{post.data.title}</h2>
     <div>
       <TagList tags={post.data.tags} />
       <span class="published-at"><FormattedDate date={post.data.publishedAt} /></span>
@@ -70,7 +66,7 @@ const { Content } = await render(post);
     height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    border: 1px solid var(--color-subtle);
+    border: 1px solid var(--color-bg-alt);
     margin-block: 1rem 1.5rem;
   }
 </style>
