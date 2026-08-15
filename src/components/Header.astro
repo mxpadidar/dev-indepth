@@ -65,7 +65,7 @@ const isAbout = pathname.startsWith("/about");
 
 <style>
   header {
-    border-bottom: 1px solid var(--color-subtle);
+    border-bottom: 1px solid var(--color-bg-alt);
     text-transform: uppercase;
   }
 
@@ -100,38 +100,52 @@ const isAbout = pathname.startsWith("/about");
   }
 
   a {
-    font-weight: 700;
+    font-weight: 400;
     text-decoration: none;
+    transition:
+      font-weight 180ms ease,
+      opacity 180ms ease;
+  }
+
+  a:hover {
+    opacity: 0.6;
+    font-weight: 700;
   }
 
   a[aria-current="page"] {
-    color: var(--color-brand);
+    color: var(--color-text);
+    font-weight: 700;
   }
 
   .menu-toggle {
     display: none;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: 0;
-    border: 0;
+    border: 1px solid var(--color-bg-alt);
+    border-radius: 50%;
     background: transparent;
     color: var(--color-text);
     cursor: pointer;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease;
   }
 
   .menu-toggle:hover,
   .menu-toggle:focus-visible {
     color: var(--color-brand);
+    border-color: var(--color-brand);
   }
 
   .menu-toggle:focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-text-alt);
     outline-offset: 2px;
   }
 
   .menu-toggle svg {
-    width: 1.25rem;
+    width: 1.35rem;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.75;
@@ -169,7 +183,7 @@ const isAbout = pathname.startsWith("/about");
       grid-template-columns: repeat(3, 1fr);
       margin-top: 1rem;
       padding-top: 0.75rem;
-      border-top: 1px solid var(--color-subtle);
+      border-top: 1px solid var(--color-bg-alt);
       text-align: center;
     }
   }

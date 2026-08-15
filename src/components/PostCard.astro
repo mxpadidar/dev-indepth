@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { Image } from "astro:assets";
 import TagList from "./TagList.astro";
 import FormattedDate from "./FormattedDate.astro";
 
@@ -15,21 +14,13 @@ const postUrl = `/posts/${id}`;
 
 <article class="post-card">
   <a href={postUrl} class="post-link">
-    <div class="thumb">
-      <Image
-        src={data.heroImage}
-        alt={data.title}
-        width={540}
-        height={304}
-        loading="lazy"
-      />
-    </div>
     <h4>{data.title}</h4>
   </a>
-
-  <!-- <p class="description">{data.description}</p> -->
-  <TagList tags={post.data.tags} />
-  <FormattedDate date={post.data.publishedAt} />
+  <p class="description">{data.description}</p>
+  <div class="post-meta">
+    <TagList tags={data.tags} />
+    <span class="post-date"><FormattedDate date={data.publishedAt} /></span>
+  </div>
 </article>
 
 <style>
@@ -37,46 +28,41 @@ const postUrl = `/posts/${id}`;
     display: grid;
     align-content: start;
     gap: 0.5rem;
-    border: 1px solid var(--color-subtle);
-    border-radius: 8px;
     padding: 1rem;
-    background: var(--color-bg-alt);
-  }
-
-  .post-link {
-    display: grid;
-    gap: 0.5rem;
-    text-decoration: none;
-  }
-
-  .thumb {
-    overflow: hidden;
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-bg-alt);
     border-radius: 4px;
   }
 
-  .thumb img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    transition: transform 300ms ease-in-out;
-  }
+  .post-link {
+    text-decoration: none;
 
-  .post-link:hover .thumb img {
-    transform: scale(1.05);
-  }
+    h4 {
+      margin: 0;
+      transition: color 180ms ease;
+    }
 
-  h4 {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    line-height: 1.3;
+    &:hover h4 {
+      color: var(--color-text-alt);
+    }
   }
 
   .description {
+    margin: 0;
+    color: var(--color-text-alt);
     font-size: 0.9rem;
-    text-align: justify;
-    margin-block: 0 0.25rem;
+  }
+
+  .post-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+  }
+
+  .post-date {
+    align-self: flex-end;
+    flex-shrink: 0;
+    color: var(--color-text-alt);
+    font-size: 0.8rem;
   }
 </style>
