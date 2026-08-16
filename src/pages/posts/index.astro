@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
-import { getPosts } from "../../lib/posts";
+import Pagination from "../../components/Pagination.astro";
+import { getPostPages } from "../../lib/posts";
 
-const posts = await getPosts();
+const pages = await getPostPages();
+const posts = pages[0] ?? [];
 
 const DESCRIPTION =
   "A collection of technical blog posts covering backend development, system architecture, and programming languages like Go and Python.";
@@ -14,6 +16,7 @@ const DESCRIPTION =
   <div class="posts-grid">
     {posts.map((post) => <PostCard post={post} />)}
   </div>
+  <Pagination currentPage={1} totalPages={pages.length} />
 </BaseLayout>
 
 <style>
