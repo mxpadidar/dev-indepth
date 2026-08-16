@@ -6,6 +6,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 const pathname = Astro.url.pathname;
 const isHome = pathname === "/";
 const isPosts = pathname.startsWith("/posts");
+const isTopics = pathname.startsWith("/topics");
 const isAbout = pathname.startsWith("/about");
 ---
 
@@ -16,6 +17,7 @@ const isAbout = pathname.startsWith("/about");
         <Brand />
         <div class="desktop-nav">
           <a href="/posts" aria-current={isPosts ? "page" : undefined}>Posts</a>
+          <a href="/topics" aria-current={isTopics ? "page" : undefined}>Topics</a>
           <a href="/about" aria-current={isAbout ? "page" : undefined}>About</a>
         </div>
       </div>
@@ -44,6 +46,7 @@ const isAbout = pathname.startsWith("/about");
     <div class="mobile-nav" id="mobile-navigation" data-mobile-nav hidden>
       <a href="/" aria-current={isHome ? "page" : undefined}>Home</a>
       <a href="/posts" aria-current={isPosts ? "page" : undefined}>Posts</a>
+      <a href="/topics" aria-current={isTopics ? "page" : undefined}>Topics</a>
       <a href="/about" aria-current={isAbout ? "page" : undefined}>About</a>
     </div>
   </nav>
@@ -179,12 +182,16 @@ const isAbout = pathname.startsWith("/about");
     }
 
     .mobile-nav:not([hidden]) {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
       margin-top: 1rem;
       padding-top: 0.75rem;
       border-top: 1px solid var(--color-bg-alt);
-      text-align: center;
+    }
+
+    .mobile-nav a {
+      padding-block: 0.35rem;
     }
   }
 </style>
