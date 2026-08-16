@@ -3,13 +3,14 @@ import type { CollectionEntry } from "astro:content";
 import TagList from "./TagList.astro";
 import FormattedDate from "./FormattedDate.astro";
 
+import { BASE_PATH } from "../consts";
 export interface Props {
   post: CollectionEntry<"blogPosts">;
 }
 
 const { post } = Astro.props;
 const { data, id } = post;
-const postUrl = `/posts/${id}`;
+const postUrl = `${BASE_PATH}/posts/${id}`;
 ---
 
 <article class="post-card">

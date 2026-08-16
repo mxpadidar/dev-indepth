@@ -1,4 +1,5 @@
 ---
+import { BASE_PATH } from "../consts";
 export interface Props {
   currentPage: number;
   totalPages: number;
@@ -8,8 +9,10 @@ const { currentPage, totalPages } = Astro.props;
 
 const pageLinks = Array.from({ length: totalPages }, (_, i) => i + 1);
 
+const postsUrl = `${BASE_PATH}/posts`;
+
 function pageUrl(page: number) {
-  return page === 1 ? "/posts/" : `/posts/page/${page}/`;
+  return page === 1 ? `${postsUrl}/` : `${postsUrl}/page/${page}/`;
 }
 ---
 

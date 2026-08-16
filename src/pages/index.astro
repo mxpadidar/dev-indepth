@@ -3,8 +3,9 @@ import BaseLayout from "../components/BaseLayout.astro";
 import LatestPosts from "../components/LatestPosts.astro";
 import TopTopics from "../components/TopTopics.astro";
 import { getPosts } from "../lib/posts";
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE, BASE_PATH } from "../consts";
 
+const rssUrl = `${BASE_PATH}/rss.xml`;
 const DESCRIPTION =
   "A digital notebook documenting real-world backend development, system design, Python, and Go.";
 
@@ -24,7 +25,7 @@ const posts = await getPosts();
   </p>
 
   <p class="stats">
-    {posts.length} posts · <a href="/rss.xml">rss feed</a>
+    {posts.length} posts · <a href={rssUrl}>rss feed</a>
   </p>
 
   <LatestPosts />

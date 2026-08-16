@@ -1,6 +1,7 @@
 ---
 import { getPosts } from "../lib/posts";
 
+import { BASE_PATH } from "../consts";
 const posts = await getPosts();
 ---
 
@@ -29,20 +30,24 @@ const posts = await getPosts();
 
   <ul data-search-results>
     {
-      posts.map((post) => (
-        <li
-          data-search-item
-          data-title={post.data.title}
-          data-description={post.data.description}
-          data-tags={post.data.tags.join(" ")}
-        >
-          <a href={`/posts/${post.id}`}>
-            <strong>{post.data.title}</strong>
-            <span>{post.data.description}</span>
-            <small>{post.data.tags.map((tag) => `#${tag}`).join("  ")}</small>
-          </a>
-        </li>
-      ))
+      posts.map((post) => {
+        const postUrl = `${BASE_PATH}/posts/${post.id}`;
+
+        return (
+          <li
+            data-search-item
+            data-title={post.data.title}
+            data-description={post.data.description}
+            data-tags={post.data.tags.join(" ")}
+          >
+            <a href={postUrl}>
+              <strong>{post.data.title}</strong>
+              <span>{post.data.description}</span>
+              <small>{post.data.tags.map((tag) => `#${tag}`).join("  ")}</small>
+            </a>
+          </li>
+        );
+      })
     }
   </ul>
 
