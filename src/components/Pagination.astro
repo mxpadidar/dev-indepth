@@ -1,0 +1,75 @@
+---
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+}
+
+const { currentPage, totalPages } = Astro.props;
+
+const pageLinks = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+function pageUrl(page: number) {
+  return page === 1 ? "/posts/" : `/posts/page/${page}/`;
+}
+---
+
+<nav class="pagination" aria-label="Pagination">
+  {
+    currentPage > 1 && (
+      <a href={pageUrl(currentPage - 1)} class="page-link" aria-label="Previous page">
+        &larr;
+      </a>
+    )
+  }
+  {
+    pageLinks.map((page) => (
+      <a
+        href={pageUrl(page)}
+        class:list={["page-link", { active: page === currentPage }]}
+        aria-current={page === currentPage ? "page" : undefined}
+      >
+        {page}
+      </a>
+    ))
+  }
+  {
+    currentPage < totalPages && (
+      <a href={pageUrl(currentPage + 1)} class="page-link" aria-label="Next page">
+        &rarr;
+      </a>
+    )
+  }
+</nav>
+
+<style>
+  .pagination {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .page-link {
+    display: grid;
+    place-items: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-bg-alt);
+    border-radius: 4px;
+    text-decoration: none;
+    transition:
+      border-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .page-link:hover {
+    border-color: var(--color-brand);
+  }
+
+  .active,
+  .active:hover {
+    color: var(--color-brand);
+    border-color: var(--color-brand);
+  }
+</style>

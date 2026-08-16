@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../../components/BaseLayout.astro";
+import PostCard from "../../../components/PostCard.astro";
+import Pagination from "../../../components/Pagination.astro";
+import { getPostPages } from "../../../lib/posts";
+
+export async function getStaticPaths() {
+  const pages = await getPostPages();
+
+  return pages.map((posts, index) => ({
+    params: { page: String(index + 1) },
+    props: { posts, currentPage: index + 1, totalPages: pages.length },
+  }));
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+
+const DESCRIPTION =
+  "A collection of technical blog posts covering backend development, system architecture, and programming languages like Go and Python.";
+---
+
+<BaseLayout title={`Blog Posts — Page ${currentPage}`} description={DESCRIPTION}>
+  <h1>Blog Posts</h1>
+  <div class="posts-grid">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+  <Pagination currentPage={currentPage} totalPages={totalPages} />
+</BaseLayout>
+
+<style>
+  .posts-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+</style>
