@@ -1,4 +1,6 @@
 ---
+import { slugify } from "../lib/topics";
+
 interface Props {
   topic: string;
   count: number;
@@ -7,7 +9,7 @@ interface Props {
 const { topic, count } = Astro.props;
 ---
 
-<a class="topic" href="#">
+<a class="topic" href={`/topics/${slugify(topic)}`}>
   #{topic}
   <span class="topic-count">{count}</span>
 </a>

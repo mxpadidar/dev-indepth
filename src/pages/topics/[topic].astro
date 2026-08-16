@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../components/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getPostsByTopic, getTopics } from "../../lib/topics";
+
+export const getStaticPaths = (async () => {
+  const topics = await getTopics();
+  return topics.map(({ topic, count, slug }) => ({
+    params: { topic: slug },
+    props: { topic, count },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  topic: string;
+  count: number;
+}
+
+const { topic, count } = Astro.props;
+const posts = await getPostsByTopic(topic);
+const DESCRIPTION = `Posts about ${topic} on dev-indepth.`;
+---
+
+<BaseLayout title={`#${topic}`} description={DESCRIPTION}>
+  <a class="back-link" href="/topics">&larr; all topics</a>
+  <h1>#{topic}</h1>
+  <p class="topic-count">{count} {count === 1 ? "post" : "posts"}</p>
+  <div class="posts-grid">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+</BaseLayout>
+
+<style>
+  .back-link {
+    font-size: 0.85em;
+  }
+
+  .topic-count {
+    color: var(--color-text-alt);
+    font-size: 0.85rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+</style>
