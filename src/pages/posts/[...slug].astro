@@ -8,6 +8,8 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import TagList from "../../components/TagList.astro";
 import { getPosts } from "../../lib/posts";
 
+import { BASE_PATH } from "../../consts";
+const postsUrl = `${BASE_PATH}/posts`;
 export const getStaticPaths = (async () => {
   const posts = await getPosts();
   return posts.map((post) => ({
@@ -26,7 +28,7 @@ const { Content } = await render(post);
 
 <BaseLayout title={post.data.title} description={post.data.description} image={post.data.heroImage}>
   <article>
-    <a class="back-link" href="/posts">&larr; all posts</a>
+    <a class="back-link" href={postsUrl}>&larr; all posts</a>
     <h2>{post.data.title}</h2>
     <div>
       <TagList tags={post.data.tags} />

@@ -4,6 +4,8 @@ import BaseLayout from "../../components/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 import { getPostsByTopic, getTopics } from "../../lib/topics";
 
+import { BASE_PATH } from "../../consts";
+const topicsUrl = `${BASE_PATH}/topics`;
 export const getStaticPaths = (async () => {
   const topics = await getTopics();
   return topics.map(({ topic, count, slug }) => ({
@@ -23,7 +25,7 @@ const DESCRIPTION = `Posts about ${topic} on dev-indepth.`;
 ---
 
 <BaseLayout title={`#${topic}`} description={DESCRIPTION}>
-  <a class="back-link" href="/topics">&larr; all topics</a>
+  <a class="back-link" href={topicsUrl}>&larr; all topics</a>
   <h1>#{topic}</h1>
   <p class="topic-count">{count} {count === 1 ? "post" : "posts"}</p>
   <div class="posts-grid">

@@ -3,10 +3,12 @@ import { Icon } from "astro-icon/components";
 import PostCard from "./PostCard.astro";
 import { getPosts } from "../lib/posts";
 
+import { BASE_PATH } from "../consts";
 interface Props {
   limit?: number;
 }
 
+const postsUrl = `${BASE_PATH}/posts`;
 const { limit = 3 } = Astro.props;
 const posts = await getPosts(limit);
 ---
@@ -14,7 +16,7 @@ const posts = await getPosts(limit);
 <section class="section-heading">
   <h2>Latest posts</h2>
   <div class="view-all-link">
-    <a href="/posts">view all</a>
+    <a href={postsUrl}>view all</a>
     <span>&rarr;</span>
   </div>
 </section>

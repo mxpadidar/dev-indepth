@@ -1,6 +1,7 @@
 ---
 import { slugify } from "../lib/topics";
 
+import { BASE_PATH } from "../consts";
 export interface Props {
   tags: string[];
 }
@@ -10,11 +11,15 @@ const { tags } = Astro.props;
 
 <div class="tag-list">
   {
-    tags.map((tag: string) => (
-      <a class="tag" href={`/topics/${slugify(tag)}`}>
-        #{tag}
-      </a>
-    ))
+    tags.map((tag: string) => {
+      const tagUrl = `${BASE_PATH}/topics/${slugify(tag)}`;
+
+      return (
+        <a class="tag" href={tagUrl}>
+          #{tag}
+        </a>
+      );
+    })
   }
 </div>
 

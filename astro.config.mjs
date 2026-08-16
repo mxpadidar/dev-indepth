@@ -8,6 +8,7 @@ import expressiveCode from "astro-expressive-code";
 // https://astro.build/config
 export default defineConfig({
   site: "https://mxpadidar.github.io",
+  base: "/dev-indepth",
   integrations: [
     sitemap(),
     icon(),

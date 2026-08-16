@@ -3,22 +3,30 @@ import Brand from "./Brand.astro";
 import Search from "./Search.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
+import { BASE_PATH } from "../consts";
+
+const postsUrl = `${BASE_PATH}/posts`;
+const topicsUrl = `${BASE_PATH}/topics`;
+const aboutUrl = `${BASE_PATH}/about`;
+const homeUrl = `${BASE_PATH}/`;
+
 const pathname = Astro.url.pathname;
-const isHome = pathname === "/";
-const isPosts = pathname.startsWith("/posts");
-const isTopics = pathname.startsWith("/topics");
-const isAbout = pathname.startsWith("/about");
+
+const isHome = pathname === `${BASE_PATH}/` || pathname === `${BASE_PATH}`;
+const isPosts = pathname.startsWith(postsUrl);
+const isTopics = pathname.startsWith(topicsUrl);
+const isAbout = pathname.startsWith(aboutUrl);
 ---
 
 <header>
   <nav class="container" aria-label="Main navigation">
     <div class="nav-row">
       <div class="nav-primary">
-        <Brand />
+        <Brand href={homeUrl} />
         <div class="desktop-nav">
-          <a href="/posts" aria-current={isPosts ? "page" : undefined}>Posts</a>
-          <a href="/topics" aria-current={isTopics ? "page" : undefined}>Topics</a>
-          <a href="/about" aria-current={isAbout ? "page" : undefined}>About</a>
+          <a href={postsUrl} aria-current={isPosts ? "page" : undefined}>Posts</a>
+          <a href={topicsUrl} aria-current={isTopics ? "page" : undefined}>Topics</a>
+          <a href={aboutUrl} aria-current={isAbout ? "page" : undefined}>About</a>
         </div>
       </div>
 
@@ -44,10 +52,10 @@ const isAbout = pathname.startsWith("/about");
     </div>
 
     <div class="mobile-nav" id="mobile-navigation" data-mobile-nav hidden>
-      <a href="/" aria-current={isHome ? "page" : undefined}>Home</a>
-      <a href="/posts" aria-current={isPosts ? "page" : undefined}>Posts</a>
-      <a href="/topics" aria-current={isTopics ? "page" : undefined}>Topics</a>
-      <a href="/about" aria-current={isAbout ? "page" : undefined}>About</a>
+      <a href={homeUrl} aria-current={isHome ? "page" : undefined}>Home</a>
+      <a href={postsUrl} aria-current={isPosts ? "page" : undefined}>Posts</a>
+      <a href={topicsUrl} aria-current={isTopics ? "page" : undefined}>Topics</a>
+      <a href={aboutUrl} aria-current={isAbout ? "page" : undefined}>About</a>
     </div>
   </nav>
 </header>

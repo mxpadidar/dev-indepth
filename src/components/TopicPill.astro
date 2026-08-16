@@ -1,15 +1,17 @@
 ---
 import { slugify } from "../lib/topics";
 
+import { BASE_PATH } from "../consts";
 interface Props {
   topic: string;
   count: number;
 }
 
 const { topic, count } = Astro.props;
+const topicUrl = `${BASE_PATH}/topics/${slugify(topic)}`;
 ---
 
-<a class="topic" href={`/topics/${slugify(topic)}`}>
+<a class="topic" href={topicUrl}>
   #{topic}
   <span class="topic-count">{count}</span>
 </a>
