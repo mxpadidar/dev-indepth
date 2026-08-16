@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import LatestPosts from "../components/LatestPosts.astro";
+import TopTopics from "../components/TopTopics.astro";
 import { getPosts } from "../lib/posts";
 import { SITE_TITLE } from "../consts";
 
@@ -27,6 +28,8 @@ const posts = await getPosts();
   </p>
 
   <LatestPosts />
+
+  <TopTopics />
 </BaseLayout>
 
 <style>

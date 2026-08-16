@@ -1,0 +1,51 @@
+---
+import { getTopics } from "../lib/topics";
+import TopicPill from "./TopicPill.astro";
+
+const topics = await getTopics(5);
+---
+
+<section class="topics-box">
+  <div class="section-heading">
+    <h2>Topics</h2>
+    <div class="view-all-link">
+      <a href="/topics">view all</a>
+      <span>&rarr;</span>
+    </div>
+  </div>
+  <div class="topic-list">
+    {topics.map(({ topic, count }) => <TopicPill topic={topic} count={count} />)}
+  </div>
+</section>
+
+<style>
+  .topics-box {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid var(--color-bg-alt);
+    border-radius: 4px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    a {
+      font-size: 0.85rem;
+    }
+  }
+
+  .topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>
