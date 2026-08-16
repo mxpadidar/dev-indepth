@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import TopicPill from "../../components/TopicPill.astro";
+import { getTopics } from "../../lib/topics";
+
+const DESCRIPTION =
+  "All topics covered on dev-indepth, each with the number of posts written about it.";
+
+const topics = await getTopics();
+---
+
+<BaseLayout title="Topics" description={DESCRIPTION}>
+  <h1>Topics</h1>
+  <div class="topic-list">
+    {topics.map(({ topic, count }) => <TopicPill topic={topic} count={count} />)}
+  </div>
+</BaseLayout>
+
+<style>
+  .topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+</style>
