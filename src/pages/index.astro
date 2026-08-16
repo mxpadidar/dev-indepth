@@ -1,41 +1,43 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import LatestPosts from "../components/LatestPosts.astro";
+import { getPosts } from "../lib/posts";
 import { SITE_TITLE } from "../consts";
 
 const DESCRIPTION =
   "A digital notebook documenting real-world backend development, system design, Python, and Go.";
 
+const posts = await getPosts();
 ---
 
 <BaseLayout title={SITE_TITLE} description={DESCRIPTION}>
-  <h1>DEV INDEPTH</h1>
+  <section class="hero">
+    <h1>DEV INDEPTH</h1>
+    <p class="tagline">backend · system design · python · go</p>
+  </section>
 
   <p>
     Welcome to dev-indepth, a digital notebook documenting the daily realities of backend
-    development. The content here focuses on practical experiences with Python and Go, breaking down
-    system design challenges, and exploring both foundational and modern software engineering
-    concepts.
+    development. Practical experiences with Python and Go, system design challenges, and lessons
+    learned from active development.
   </p>
 
-  <p>
-    This space is dedicated to technical details and lessons learned from active development—from
-    scaling services and debugging complex concurrency issues to architecting new systems.
+  <p class="stats">
+    {posts.length} posts · <a href="/rss.xml">rss feed</a>
   </p>
-
-  <div class="read-more">
-    <a href="/about">read more about me</a>
-    <span>&rarr;</span>
-  </div>
 
   <LatestPosts />
 </BaseLayout>
 
 <style>
-  .read-more {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  .tagline {
+    color: var(--color-text-alt);
+    margin-block: 0 1rem;
   }
 
+  .stats {
+    color: var(--color-text-alt);
+    font-size: 0.85rem;
+    margin-block: 0.5rem 0;
+  }
 </style>

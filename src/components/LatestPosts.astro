@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import PostCard from "./PostCard.astro";
 import { getPosts } from "../lib/posts";
 
@@ -19,10 +20,47 @@ const posts = await getPosts(limit);
 </section>
 
 <div class="posts-grid">
+  <button
+    class="home-search"
+    type="button"
+    data-search-trigger
+    aria-haspopup="dialog"
+    aria-controls="post-search-dialog"
+  >
+    <Icon name="mdi:search" size={18} aria-hidden="true" />
+    <span>search posts</span>
+    <kbd>ctrl + k</kbd>
+  </button>
+
   {posts.map((post) => <PostCard post={post} />)}
 </div>
 
 <style>
+  .home-search {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--color-bg-alt);
+    border-radius: 4px;
+    background: var(--color-bg-alt);
+    color: var(--color-text-alt);
+    font: inherit;
+    cursor: pointer;
+    transition: border-color 180ms ease;
+
+    &:hover {
+      border-color: var(--color-text-alt);
+    }
+  }
+
+  .home-search kbd {
+    margin-left: auto;
+    font: inherit;
+    font-size: 0.7rem;
+  }
+
   .view-all-link {
     display: flex;
     align-items: center;
