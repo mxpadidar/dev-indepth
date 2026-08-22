@@ -55,14 +55,12 @@ const postUrl = `${BASE_PATH}/posts/${id}`;
   }
 
   .post-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.5rem 1rem;
+    display: grid;
+    gap: 0.5rem;
   }
 
   .post-date {
-    align-self: flex-end;
-    flex-shrink: 0;
+    justify-self: end;
     color: var(--color-text-alt);
     font-size: 0.8rem;
   }
