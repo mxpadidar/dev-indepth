@@ -1,15 +1,18 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import LatestPosts from "../components/LatestPosts.astro";
-import TopTopics from "../components/TopTopics.astro";
+import Topics from "../components/Topics.astro";
+import { getTopics } from "../lib/topics";
 import { getPosts } from "../lib/posts";
 import { SITE_TITLE, BASE_PATH } from "../consts";
 
 const rssUrl = `${BASE_PATH}/rss.xml`;
+const topicsUrl = `${BASE_PATH}/topics`;
 const DESCRIPTION =
   "A digital notebook documenting real-world backend development, system design, Python, and Go.";
 
 const posts = await getPosts();
+const topics = await getTopics(5);
 ---
 
 <BaseLayout title={SITE_TITLE} description={DESCRIPTION}>
@@ -27,16 +30,48 @@ const posts = await getPosts();
     lessons that help you write software that is easier to understand, test, change, and maintain.
   </p>
 
-  <p class="stats">
-    {posts.length} posts · <a href={rssUrl}>rss feed</a>
-  </p>
+  <div class="stats">
+    <span>{posts.length} posts</span> · <a href={rssUrl}>rss feed</a>
+  </div>
 
   <LatestPosts />
 
-  <TopTopics />
+  <section class="topics-box">
+    <div class="section-heading">
+      <h2>Topics</h2>
+      <div class="view-all-link">
+        <a href={topicsUrl}>view all</a>
+        <span>&rarr;</span>
+      </div>
+    </div>
+    <Topics topics={topics} />
+  </section>
 </BaseLayout>
 
 <style>
+  .topics-box {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    a {
+      font-size: 0.85rem;
+    }
+  }
+
   .tagline {
     color: var(--color-text-alt);
     margin-block: 0 1rem;

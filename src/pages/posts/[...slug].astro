@@ -5,7 +5,7 @@ import type { GetStaticPaths } from "astro";
 import { Image } from "astro:assets";
 import BaseLayout from "../../components/BaseLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
-import TagList from "../../components/TagList.astro";
+import PostTags from "../../components/PostTags.astro";
 import { getPosts } from "../../lib/posts";
 
 import { BASE_PATH } from "../../consts";
@@ -31,7 +31,7 @@ const { Content } = await render(post);
     <a class="back-link" href={postsUrl}>&larr; all posts</a>
     <h2>{post.data.title}</h2>
     <div class="post-meta">
-      <TagList tags={post.data.tags} />
+      <PostTags tags={post.data.tags} />
       <div class="meta-right">
         <span class="published-at"><FormattedDate date={post.data.publishedAt} /></span>
       </div>

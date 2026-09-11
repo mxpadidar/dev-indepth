@@ -1,0 +1,52 @@
+---
+import { slugify } from "../lib/topics";
+import { BASE_PATH } from "../consts";
+
+interface Props {
+  topics: { topic: string; count: number }[];
+}
+
+const { topics } = Astro.props;
+---
+
+<div class="topic-list">
+  {
+    topics.map(({ topic, count }) => {
+      const topicUrl = `${BASE_PATH}/topics/${slugify(topic)}`;
+
+      return (
+        <a class="topic" href={topicUrl}>
+          #{topic}
+          <span class="topic-count">{count}</span>
+        </a>
+      );
+    })
+  }
+</div>
+
+<style>
+  .topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .topic {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 1rem;
+
+    &:focus-visible {
+      outline: 2px solid var(--color-text-alt);
+      outline-offset: 2px;
+    }
+  }
+
+  .topic-count {
+    color: var(--color-text-alt);
+    font-size: 0.75rem;
+  }
+</style>

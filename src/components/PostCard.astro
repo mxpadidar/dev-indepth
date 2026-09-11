@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import TagList from "./TagList.astro";
+import PostTags from "./PostTags.astro";
 import FormattedDate from "./FormattedDate.astro";
 
 import { BASE_PATH } from "../consts";
@@ -13,55 +13,33 @@ const { data, id } = post;
 const postUrl = `${BASE_PATH}/posts/${id}`;
 ---
 
-<article class="post-card">
-  <a href={postUrl} class="post-link">
+<article>
+  <a href={postUrl}>
     <h4>{data.title}</h4>
+    <p>{data.description}</p>
   </a>
-  <p class="description">{data.description}</p>
-  <div class="post-meta">
-    <TagList tags={data.tags} />
-    <span class="post-date"><FormattedDate date={data.publishedAt} /></span>
-  </div>
+  <PostTags tags={data.tags} />
+  <span><FormattedDate date={data.publishedAt} /></span>
 </article>
 
 <style>
-  .post-card {
+  article {
     display: grid;
     align-content: start;
     gap: 0.5rem;
     padding: 1rem;
     background-color: var(--color-bg-alt);
-    border: 1px solid var(--color-bg-alt);
+    border: 1px solid var(--color-border);
     border-radius: 4px;
   }
 
-  .post-link {
-    text-decoration: none;
-
-    h4 {
-      margin: 0;
-      transition: color 180ms ease;
-    }
-
-    &:hover h4 {
-      color: var(--color-text-alt);
-    }
-  }
-
-  .description {
+  p {
     margin: 0;
-    color: var(--color-text-alt);
     font-size: 0.9rem;
+    /* color: var(--color-text-alt); */
   }
 
-  .post-meta {
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .post-date {
-    justify-self: end;
-    color: var(--color-text-alt);
+  span {
     font-size: 0.8rem;
   }
 </style>
