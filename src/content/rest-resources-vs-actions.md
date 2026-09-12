@@ -5,7 +5,7 @@ description: >-
   mental model — nouns, not verbs — for finding your resources and designing URLs that stay clean
   as the system grows.
 tags: [system-design, api-design, rest-api]
-draft: false
+draft: true
 author: mxpadidar
 publishedAt: 2026-06-28
 heroImage: ../assets/hero-images/rest-resources-vs-actions.png

@@ -4,7 +4,7 @@ description: >-
   Your database commit succeeds, but the event never reaches the broker. Here's how the Outbox
   Pattern turns silent message loss into a recoverable moment.
 tags: [design-patterns, distributed-systems, system-design, event-driven]
-draft: false
+draft: true
 author: mxpadidar
 publishedAt: 2026-08-16
 heroImage: ../assets/hero-images/outbox-pattern.png

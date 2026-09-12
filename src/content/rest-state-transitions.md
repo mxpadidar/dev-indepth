@@ -4,7 +4,7 @@ description: >-
   Approving, rejecting, escalating — none of these deserve their own endpoint. How to model
   workflow state transitions as PATCH updates with domain-validated rules.
 tags: [api-design, rest-api]
-draft: false
+draft: true
 author: mxpadidar
 publishedAt: 2026-07-05
 heroImage: ../assets/hero-images/rest-state-transitions.png

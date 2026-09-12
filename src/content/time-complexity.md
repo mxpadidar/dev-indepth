@@ -4,7 +4,7 @@ description: >-
   An algorithm isn't slow because of your hardware — it's slow because of how it grows. Big O
   notations explained with Python examples you'll actually write.
 tags: [algorithms, data-structures, python]
-draft: false
+draft: true
 author: mxpadidar
 publishedAt: 2026-06-21
 heroImage: ../assets/hero-images/time-complexity.png

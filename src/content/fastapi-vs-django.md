@@ -3,7 +3,7 @@ title: "FastAPI vs Django: The Wrong Tool for the Job"
 description: >-
   Why FastAPI wins for API-only projects: native async, type-safe validation, and zero boilerplate.
 tags: [fastapi, django, python, rest-api]
-draft: false
+draft: true
 author: mxpadidar
 publishedAt: 2026-07-12
 heroImage: ../assets/hero-images/fastapi-vs-django.png

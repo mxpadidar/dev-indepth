@@ -4,7 +4,7 @@ description: >-
   Stop memorizing API calls and finally understand exchanges, queues, and bindings with a visual
   walkthrough in Python.
 tags: [rabbitmq, messaging, distributed-systems]
-draft: false
+draft: true
 author: mxpadidar
 publishedAt: 2026-07-26
 heroImage: ../assets/hero-images/rabbitmq-concepts.png
@@ -18,7 +18,6 @@ In this post we'll strip RabbitMQ down to its essentials and rebuild the picture
 and the `pika` library. We'll follow a single message through the system, from the moment it's
 published until a consumer processes it. By the end, you'll be able to read (and write) RabbitMQ
 code with confidence.
-
 
 ## The big picture: It's a post office, not a point-to-point wire
 
@@ -49,7 +48,6 @@ specific mailbox. The two never need to know each other's address.
 
 Now let's see how this plays out in Python.
 
-
 ## The Connection — your TCP highway
 
 Everything starts with a TCP connection to RabbitMQ. Creating one is expensive, so it should be
@@ -64,7 +62,6 @@ connection = pika.BlockingConnection(
 ```
 
 **Rule of thumb:** one connection per process, reused.
-
 
 ## Channels — lightweight virtual connections
 
@@ -84,7 +81,6 @@ Creating a channel is cheap, so you often give each logical task its own.
 channel = connection.channel()
 ```
 
-
 ## The Exchange — the sorting office
 
 An exchange receives every message a publisher sends. It **never** stores anything. Its sole job
@@ -101,7 +97,6 @@ channel.basic_publish(
 Notice that the publisher specifies an **exchange** and a **routing key**, but **no queue**.
 That's the publisher's contract: "I'm dropping this at the sorting office with a routing slip
 that says 'order.created' — you take it from here."
-
 
 ## The Queue — the mailbox
 
@@ -121,7 +116,6 @@ channel.basic_consume(
 Again, the consumer doesn't know which exchange the message came from — it just knows the queue
 name.
 
-
 ## The Binding — the rule that connects them
 
 A **binding** is the glue that tells the exchange "when you see a message with routing key X,
@@ -137,7 +131,6 @@ channel.queue_bind(
 
 Without a binding, the queue will never see any messages, no matter how many times the publisher
 sends them.
-
 
 ## Routing Keys — the address label
 
@@ -162,7 +155,6 @@ channel.basic_publish(
     body=json.dumps(payload),
 )
 ```
-
 
 ## Exchange Types — how the sorting happens
 
@@ -205,7 +197,6 @@ message. Perfect for scenarios like cache invalidation or logging.
 
 Uses message headers instead of the routing key. Rarely needed for most applications.
 
-
 ## The Message — opaque bytes
 
 RabbitMQ sees the message body as a blob of bytes. Your application decides the format. A
@@ -226,7 +217,6 @@ common pattern is to use JSON with a structured envelope:
 ```
 
 This keeps metadata separate from business data and makes dispatching easy.
-
 
 ## The Consumer — a pipeline, not just a callback
 
@@ -249,7 +239,6 @@ channel.start_consuming()
 But we're not done. The message is **not** removed from the queue until the consumer explicitly
 acknowledges it.
 
-
 ## Acknowledgements — "I've handled it"
 
 By default, RabbitMQ keeps a message until the consumer confirms successful processing. This is
@@ -270,7 +259,6 @@ ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
 If a consumer crashes before acking, RabbitMQ automatically re-queues the message, ensuring it's
 not lost.
 
-
 ## Prefetch Count — don't be greedy
 
 A single consumer could grab dozens of messages at once, leaving other consumers idle. The
@@ -282,7 +270,6 @@ channel.basic_qos(prefetch_count=1)
 
 With `prefetch_count=1`, the consumer takes one message, processes it, acks it, and only then
 receives the next. This naturally balances load across multiple workers.
-
 
 ## Durability — survive restarts
 
@@ -307,7 +294,6 @@ channel.basic_publish(
 ```
 
 Now both the queue and its messages will survive a broker restart.
-
 
 ## Putting it all together: an e-commerce example
 
@@ -402,7 +388,6 @@ Order Service (Publisher)
 
 Both consumers receive the same message and work completely independently.
 
-
 ## Recommended project structure
 
 For a clean Django or FastAPI service, separate the messaging infrastructure from business
@@ -420,7 +405,6 @@ rabbitmq/
 
 This keeps your application code testable and framework-agnostic. The dispatcher simply looks at
 `message["type"]` and calls `handle_order_created()` or `handle_order_shipped()`.
-
 
 ## Quick reference: RabbitMQ concepts at a glance
 
