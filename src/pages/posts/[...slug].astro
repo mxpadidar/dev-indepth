@@ -36,6 +36,7 @@ const { Content } = await render(post);
         <span class="published-at"><FormattedDate date={post.data.publishedAt} /></span>
       </div>
     </div>
+    <p>{post.data.description}</p>
     {
       post.data.heroImage && (
         <Image
