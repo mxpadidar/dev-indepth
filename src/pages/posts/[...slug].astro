@@ -1,11 +1,12 @@
 ---
-import { render } from "astro:content";
+import { getEntries, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import type { GetStaticPaths } from "astro";
 import { Image } from "astro:assets";
 import BaseLayout from "../../components/BaseLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import PostTags from "../../components/PostTags.astro";
+import RelatedPosts from "../../components/RelatedPosts.astro";
 import { getPosts } from "../../lib/posts";
 
 import { BASE_PATH } from "../../consts";
@@ -24,6 +25,12 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const relatedPosts = (await getEntries(post.data.relatedPosts)).filter(
+  (relatedPost, index, entries) =>
+    !relatedPost.data.draft &&
+    relatedPost.id !== post.id &&
+    entries.findIndex(({ id }) => id === relatedPost.id) === index,
+);
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} image={post.data.heroImage}>
@@ -50,6 +57,7 @@ const { Content } = await render(post);
     }
 
     <div class="content"><Content /></div>
+    <RelatedPosts posts={relatedPosts} />
   </article>
 </BaseLayout>
 

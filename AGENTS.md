@@ -128,6 +128,7 @@ title: "An opinionated title"
 description: >-
   Describe the problem, then explain what the reader will learn.
 tags: [clean-code, refactoring]
+relatedPosts: []
 draft: true
 author: mxpadidar
 publishedAt: YYYY-MM-DD
@@ -144,6 +145,11 @@ heroImage: ../assets/hero-images/{slug}.png
 - [ ] Set `publishedAt` to a real calendar date in `YYYY-MM-DD` format.
 - [ ] Always include `heroImage: ../assets/hero-images/{slug}.png`, even before the image exists.
 - [ ] Make the image basename match the post slug exactly.
+- [ ] Optionally list existing post IDs under `relatedPosts`, without paths or `.md` extensions.
+      For example, `relatedPosts: [python-asyncio-guide]`. Omit it or use `[]` for no
+      recommendations. The site renders published targets in the given order, using their titles
+      and descriptions. Use this field for closing recommendations; contextual links within the
+      explanation can stay in the body.
 
 ## Hero image
 

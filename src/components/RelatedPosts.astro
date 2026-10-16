@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { BASE_PATH } from "../consts";
+
+interface Props {
+  posts: CollectionEntry<"blogPosts">[];
+}
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="related-posts" aria-labelledby="related-posts-heading">
+      <h2 id="related-posts-heading">Related posts</h2>
+      <ul role="list">
+        {posts.map(({ id, data }) => (
+          <li>
+            <a href={`${BASE_PATH}/posts/${id}/`}>{data.title}</a>
+            <p>{data.description}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .related-posts {
+    margin-block-start: 2rem;
+    padding-block-start: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  h2 {
+    margin: 0 0 1rem;
+  }
+
+  ul {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    text-decoration-color: currentColor;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 4px;
+  }
+
+  p {
+    margin: 0.35rem 0 0;
+    color: var(--color-text-alt);
+    font-size: 0.9rem;
+  }
+</style>

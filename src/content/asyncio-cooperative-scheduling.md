@@ -4,6 +4,8 @@ description: >-
   Two async calls can still run sequentially. See how scheduling tasks and yielding control
   let asyncio overlap their work, and why await alone does not make that happen.
 tags: [python, concurrency]
+relatedPosts:
+  - python-asyncio-guide
 draft: false
 author: mxpadidar
 publishedAt: 2026-10-16
