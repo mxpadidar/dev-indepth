@@ -147,28 +147,24 @@ in more depth.
 Within one event-loop thread, only one task executes Python code at a time. Concurrency comes
 from letting another task run while the current one is waiting.
 
-The start of our concurrent example follows this sequence:
+Our concurrent example follows this flow:
 
-```mermaid
-sequenceDiagram
-    participant M as main task
-    participant L as Event loop
-    participant P as Profile task
-    participant O as Orders task
-    Note over M,L: main creates both tasks
-    M->>L: Suspend at await profile_task
-    L->>P: Run profile
-    Note over P: Print started
-    P->>L: Suspend at sleep(1)
-    L->>O: Run orders
-    Note over O: Print started
-    O->>L: Suspend at sleep(1)
-    Note over L,O: Both timers are pending
+```text
+main creates both tasks, then awaits profile_task
+  ↓
+profile starts → sleep(1) → yields to the loop
+  ↓
+orders starts  → sleep(1) → yields to the loop
+  ↓
+both waits overlap for about one second
+  ↓
+tasks resume in turn and finish
+  ↓
+main finishes after both tasks
 ```
 
-The loop can now handle other ready work or wait for a timer or I/O event. After about one second,
-both loads become ready to resume. Each gets a turn to print its final message and return.
-`main()` finishes after both results are available.
+When the profile task finishes, `main()` can resume and reach `await orders_task`.
+If orders has already finished, that await returns immediately; otherwise, `main()` waits for it.
 
 A timer becoming ready does not interrupt the task currently running. That task must give up
 control before the loop can run something else.
